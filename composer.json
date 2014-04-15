@@ -1,10 +1,10 @@
 {
-  "name": "dindigital/Essential",
+  "name": "dindigital/essential",
   "description": "Din Digital Essential Framework",
   "type": "library",
   "autoload": {
     "psr-0": {
-      "Essential\\": "library/"
+      "Din\\": "library/"
     }
   },
   "authors": [
