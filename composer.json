@@ -1,0 +1,20 @@
+{
+  "name": "dindigital/Essential",
+  "description": "Din Digital Essential Framework",
+  "type": "library",
+  "autoload": {
+    "psr-0": {
+      "Essential\\": "library/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Jair Cueva Junior",
+      "email": "junior@dindigital.com"
+    },
+    {
+      "name": "Mario Mello",
+      "email": "mario@dindigital.com"
+    }
+  ]
+}
