@@ -1,6 +1,6 @@
 <?php
 
-namespace Essential;
+namespace Din\Essential;
 
 class Teste
 {
