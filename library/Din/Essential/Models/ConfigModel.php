@@ -2,11 +2,11 @@
 
 namespace Din\Essential\Models;
 
-use Admin\Models\Essential\AdminAuthModel;
+use Din\Essential\Models\AdminAuthModel;
 use Admin\Models\AdminModel;
-use Admin\Helpers\MoveFiles;
-use Admin\Helpers\Form;
-use Admin\CustomFilter\TableFilterAdm as TableFilter;
+use Din\Essential\Helpers\MoveFiles;
+use Din\Essential\Helpers\Form;
+use Din\TableFilter\TableFilter;
 use Din\InputValidator\InputValidator;
 
 /**
