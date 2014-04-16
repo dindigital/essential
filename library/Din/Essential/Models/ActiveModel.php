@@ -27,12 +27,15 @@ class ActiveModel extends BaseModelAdm
   {
     $table = new Table($this->_model->getTableName());
     $f = new TableFilter($table, array(
-        'active' => $active
+        'is_active' => $active
     ));
 
-    $f->intval()->filter('active');
+    $f->intval()->filter('is_active');
 
     $title = $this->_model->_entity->getTitle();
+
+    var_dump($active);
+    var_dump($table);
 
     $tableHistory = $this->_model->getById($id);
     $this->_dao->update($table, array($this->_model->getIdName() . ' = ?' => $id));
