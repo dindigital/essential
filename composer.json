@@ -1,4 +1,6 @@
 {
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "name": "dindigital/essential",
   "description": "Din Digital Essential Framework",
   "type": "library",
