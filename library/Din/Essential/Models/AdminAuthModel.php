@@ -24,7 +24,7 @@ class AdminAuthModel extends Auth
     $pk_field = 'id_admin';
     $login_field = 'email';
     $pass_field = 'password';
-    $active_field = 'active';
+    $active_field = 'is_active';
 
     $PDO = PDOBuilder::build(DB_TYPE, DB_HOST, DB_SCHEMA, DB_USER, DB_PASS);
     $ADL = new AuthDataLayer($PDO, $tbl, $login_field, $pass_field, $pk_field, $active_field);
