@@ -43,8 +43,6 @@ class SocialmediaCredentialsModel extends BaseModelAdm
     $f->string()->filter('youtube_secret');
     $f->string()->filter('youtube_token');
 
-    JsonException::throwException();
-
     $this->dao_update(false);
 
   }
