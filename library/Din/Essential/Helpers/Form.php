@@ -62,9 +62,9 @@ class Form
   {
     $d = new Dropdown($name);
     if ( $class ) {
-      $d->setClass('form-control ' . $class);
+      $d->setClass('select2 ' . $class);
     } else {
-      $d->setClass('form-control');
+      $d->setClass('select2');
     }
 
     $d->setSelected($selected);
