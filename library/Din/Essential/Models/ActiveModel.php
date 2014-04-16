@@ -34,9 +34,6 @@ class ActiveModel extends BaseModelAdm
 
     $title = $this->_model->_entity->getTitle();
 
-    var_dump($active);
-    var_dump($table);
-
     $tableHistory = $this->_model->getById($id);
     $this->_dao->update($table, array($this->_model->getIdName() . ' = ?' => $id));
     $this->_model->log('U', $tableHistory[$title], $table, $tableHistory);
