@@ -7,6 +7,9 @@
       "Din\\Essential": "library/"
     }
   },
+  "require": {
+    "dindigital/din": "dev-master"
+  },
   "authors": [
     {
       "name": "Jair Cueva Junior",
