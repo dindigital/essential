@@ -5,7 +5,6 @@ namespace Din\Essential\Models;
 use Din\Essential\Models\BaseModelAdm;
 use Din\DataAccessLayer\Select;
 use Din\TableFilter\TableFilter;
-use Din\Exception\JsonException;
 
 /**
  *
@@ -30,6 +29,7 @@ class SocialmediaCredentialsModel extends BaseModelAdm
     $f->string()->filter('fb_app_secret');
     $f->string()->filter('fb_page');
     $f->string()->filter('fb_access_token');
+    $f->string()->filter('tw_user');
     $f->string()->filter('tw_consumer_key');
     $f->string()->filter('tw_consumer_secret');
     $f->string()->filter('tw_access_token');
@@ -39,9 +39,12 @@ class SocialmediaCredentialsModel extends BaseModelAdm
     $f->string()->filter('sc_client_id');
     $f->string()->filter('sc_client_secret');
     $f->string()->filter('sc_token');
+    $f->string()->filter('youtube_user');
     $f->string()->filter('youtube_id');
     $f->string()->filter('youtube_secret');
     $f->string()->filter('youtube_token');
+    $f->string()->filter('googleplus_user');
+    $f->string()->filter('instagram_user');
 
     $this->dao_update(false);
 
