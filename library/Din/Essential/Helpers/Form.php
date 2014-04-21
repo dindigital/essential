@@ -58,14 +58,10 @@ class Form
    * @param string $class
    * @return string
    */
-  public static function Dropdown ( $name, $array, $selected = '', $firstOption = null, $id = null, $class = null )
+  public static function Dropdown ( $name, $array, $selected = '', $firstOption = null, $id = null, $class = 'select2' )
   {
     $d = new Dropdown($name);
-    if ( $class ) {
-      $d->setClass('select2 ' . $class);
-    } else {
-      $d->setClass('select2');
-    }
+    $d->setClass($class);
 
     $d->setSelected($selected);
     $d->setOptionsArray($array);
