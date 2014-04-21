@@ -188,7 +188,7 @@ class BaseModelAdm
     }
 
     $arrCriteria = array(
-        $this->getIdName() . ' = ?' => $this->getId()
+        'a.' . $this->getIdName() . ' = ?' => $this->getId()
     );
 
     $select = new Select($this->getTableName());
