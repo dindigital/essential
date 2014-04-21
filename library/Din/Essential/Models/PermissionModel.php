@@ -69,7 +69,7 @@ class PermissionModel extends BaseModelAdm
             $user_menu[$section]['submenu'][$subsection] = $subspecs;
 
             $entity = $this->_entities->getEntity($subspecs['tbl']);
-            $user_menu[$section]['submenu'][$subsection]['index'] = "/admin/{$entity->getTbl()}/{$subspecs['index']}/";
+            $user_menu[$section]['submenu'][$subsection]['index'] = $this->formatLink($entity->getTbl(), $subspecs);
           }
         }
       } else {
@@ -77,12 +77,22 @@ class PermissionModel extends BaseModelAdm
           $user_menu[$section] = $specs;
 
           $entity = $this->_entities->getEntity($specs['tbl']);
-          $user_menu[$section]['index'] = "/admin/{$entity->getTbl()}/{$specs['index']}/";
+          $user_menu[$section]['index'] = $this->formatLink($entity->getTbl(), $specs);
         }
       }
     }
 
     return $user_menu;
+
+  }
+
+  protected function formatLink ( $table, $array )
+  {
+    $link = "/admin/{$table}/";
+    if ( array_key_exists('index', $array) && $array['index'] ) {
+      $link .= "{$array['index']}/";
+    }
+    return $link;
 
   }
 
