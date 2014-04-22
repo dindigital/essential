@@ -11,6 +11,8 @@ use Exception;
 use Din\Essential\Models\LogMySQLModel as log;
 use Din\DataAccessLayer\Table\Table;
 use Din\Essential\Helpers\Entity;
+use Din\TableFilter\TableFilter;
+use Din\Essential\Models\SequenceModel;
 
 class BaseModelAdm
 {
@@ -275,6 +277,8 @@ class BaseModelAdm
       $tableHistory = $this->getById();
     }
 
+    $this->beforeUpdate($tableHistory);
+
     $this->_dao->update($this->_table, array("{$this->getIdName()} = ?" => $this->getId()));
 
     if ( $log ) {
@@ -282,6 +286,28 @@ class BaseModelAdm
       $msg = $this->_table->{$title};
 
       $this->log('U', $msg, $this->_table, $tableHistory);
+    }
+
+  }
+
+  public function beforeUpdate ( $tableHistory )
+  {
+    $entity_sequence = $this->_entity->getSequence();
+    if ( count($entity_sequence) && isset($entity_sequence['dependence']) ) {
+      $dependence_field = $entity_sequence['dependence'];
+      $dependence_value = $this->_table->{$dependence_field};
+
+      if ( $tableHistory[$dependence_field] != $dependence_value ) {
+        $seq = new SequenceModel();
+        $seq->changeSequence(array(
+            'tbl' => $this->getTableName(),
+            'id' => $this->getId(),
+            'sequence' => 0
+        ));
+
+        $f = new TableFilter($this->_table, array());
+        $f->sequence($this->_dao, $this->_entity)->filter('sequence');
+      }
     }
 
   }
