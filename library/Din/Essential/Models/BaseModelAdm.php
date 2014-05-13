@@ -94,7 +94,7 @@ class BaseModelAdm
   {
     $total = $this->_dao->select_count($select);
     $offset = $this->_paginator->getOffset($total);
-    $select->setLimit($this->_itens_per_page, $offset);
+    $select->limit($this->_itens_per_page, $offset);
 
   }
 
