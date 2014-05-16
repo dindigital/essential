@@ -273,9 +273,7 @@ class BaseModelAdm
 
   public function dao_update ( $log = true )
   {
-    if ( $log ) {
-      $tableHistory = $this->getById();
-    }
+    $tableHistory = $this->getById();
 
     $this->beforeUpdate($tableHistory);
 
