@@ -4,7 +4,7 @@ namespace Din\Essential\Models;
 
 use Din\Essential\Models\AdminAuthModel;
 use Admin\Models\AdminModel;
-use Din\Essential\Helpers\MoveFiles;
+use Din\File\MoveFiles;
 use Din\Essential\Helpers\Form;
 use Din\TableFilter\TableFilter;
 use Din\InputValidator\InputValidator;
