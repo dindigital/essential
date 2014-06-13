@@ -122,6 +122,10 @@ class TrashModel extends BaseModelAdm
       ));
 
       if ( count($entity_sequence) ) {
+
+        if ( isset($entity_sequence['dependence']) ) {
+          $table->{$entity_sequence['dependence']} = $tableHistory[$entity_sequence['dependence']];
+        }
         $f->sequence($this->_dao, $entity)->filter('sequence');
       }
 
