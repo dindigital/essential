@@ -147,6 +147,16 @@ class BaseModelAdm
       $id = $this->_entity->getId();
       $tbl = $this->_entity->getTbl();
       $title = $this->_entity->getTitle();
+      $entity_sequence = $this->_entity->getSequence();
+
+      if ( count($entity_sequence) ) {
+        $seq = new SequenceModel();
+        $seq->changeSequence(array(
+            'tbl' => $tbl,
+            'id' => $item['id'],
+            'sequence' => 0
+        ));
+      }
 
       $tableHistory = $this->getById($item['id']);
 

@@ -82,7 +82,7 @@ class AdminPasswordModel extends BaseModelAdm
     );
 
     $email_html = new View;
-    $email_html->addFile('src/app/admin/views/email/recover_password.phtml');
+    $email_html->addFile('src/app/Admin/Views/email/recover_password.phtml');
     $email_html->setData($data);
 
     $email = new Email;
