@@ -27,15 +27,30 @@ class SequenceResult
     if ( isset($entity_sequence['dependence']) ) {
       $dependence_field = $entity_sequence['dependence'];
 
-      foreach ( $arrCriteria as $field => $value ) {
-        if ( strpos($field, $dependence_field) !== false ) {
-          $dependenceCriteria[$field] = $value;
-          break;
+      if ( is_array($dependence_field) ) {
+        foreach ( $dependence_field as $dp ) {
+          foreach ( $arrCriteria as $field => $value ) {
+            if ( strpos($field, $dp) !== false ) {
+              $dependenceCriteria[$field] = $value;
+              //break;
+            }
+          }
         }
-      }
 
-      if ( !count($dependenceCriteria) )
-        return $result;
+
+        if ( count($dependence_field) != count($dependenceCriteria) )
+          return $result;
+      } else {
+        foreach ( $arrCriteria as $field => $value ) {
+          if ( strpos($field, $dependence_field) !== false ) {
+            $dependenceCriteria[$field] = $value;
+            break;
+          }
+        }
+
+        if ( !count($dependenceCriteria) )
+          return $result;
+      }
     }
 
     $total = $this->getMaxSequence($dependenceCriteria);

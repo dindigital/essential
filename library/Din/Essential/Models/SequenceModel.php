@@ -55,9 +55,16 @@ class SequenceModel extends BaseModelAdm
 
     if ( isset($entity_sequence['dependence']) ) {
       $dependence_field = $entity_sequence['dependence'];
-      $dependence_value = $row[$dependence_field];
 
-      $arrCriteria[$dependence_field . ' = ?'] = $dependence_value;
+      if ( is_array($dependence_field) ) {
+        foreach ( $dependence_field as $df ) {
+          $dependence_value = $row[$df];
+          $arrCriteria[$df . ' = ?'] = $dependence_value;
+        }
+      } else {
+        $dependence_value = $row[$dependence_field];
+        $arrCriteria[$dependence_field . ' = ?'] = $dependence_value;
+      }
     }
 
     if ( $sequence_new == 0 ) {
