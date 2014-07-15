@@ -67,6 +67,8 @@ class SequenceModel extends BaseModelAdm
       }
     }
 
+    $commonCriteria = $arrCriteria;
+
     if ( $sequence_new == 0 ) {
       $arrCriteria['sequence > ?'] = $sequence_old;
       $result = $this->operateSequence('-', $arrCriteria);
@@ -85,6 +87,11 @@ class SequenceModel extends BaseModelAdm
 
     $this->updateSequence($sequence_new, $input['id']);
 
+    // implementação de maximo
+    if ( isset($entity_sequence['maximum']) ) {
+      $this->updateMaximum($entity_sequence['maximum'], $commonCriteria);
+    }
+
   }
 
   protected function updateSequence ( $sequence, $id )
@@ -99,6 +106,20 @@ class SequenceModel extends BaseModelAdm
     $f->intval()->filter('sequence');
 
     $this->_dao->update($table, array($entity_id . ' = ? ' => $id));
+
+  }
+
+  protected function updateMaximum ( $maximum, $commonCriteria )
+  {
+    $arrCriteria = $commonCriteria;
+    $arrCriteria['sequence > ?'] = $maximum;
+
+    $entity_tbl = $this->_entity->getTbl();
+
+    $table = new Table($entity_tbl);
+    $table->sequence = 0;
+
+    $this->_dao->update($table, $arrCriteria);
 
   }
 

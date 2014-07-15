@@ -66,11 +66,21 @@ class SequenceResult
       $options[$i] = $i;
     }
 
-
     foreach ( $result as $i => $row ) {
       if ( $optional && $row['sequence'] == 0 ) {
         $options2 = $options;
-        $options2[(string) $total + 1] = (string) $total + 1;
+
+        // implementação de maximo
+        $addone = true;
+        if ( isset($entity_sequence['maximum']) ) {
+          if ( $total == $entity_sequence['maximum'] ) {
+            $addone = false;
+          }
+        }
+
+        if ( $addone ) {
+          $options2[(string) $total + 1] = (string) $total + 1;
+        }
 
         $result[$i]['sequence_list_array'] = $options2;
       } else {
