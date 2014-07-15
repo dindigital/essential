@@ -45,6 +45,13 @@ class SocialmediaCredentialsModel extends BaseModelAdm
     $f->string()->filter('youtube_token');
     $f->string()->filter('googleplus_user');
     $f->string()->filter('instagram_user');
+    $f->string()->filter('link_twitter');
+    $f->string()->filter('link_facebook');
+    $f->string()->filter('link_google');
+    $f->string()->filter('link_instagram');
+    $f->string()->filter('link_flickr');
+    $f->string()->filter('link_youtube');
+    $f->string()->filter('discus_username');
 
     $this->dao_update(false);
 
