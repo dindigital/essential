@@ -99,16 +99,19 @@ class FacepostModel extends BaseModelAdm
         "access_token" => $this->_sm_credentials->row['fb_access_token'],
         "message" => $input['message'],
         "link" => $input['link'],
-        "picture" => $input['picture'],
         "name" => $input['name'],
         //"caption" => "Esse é o campo caption",
         "description" => $input['description'],
     );
 
+    if ( isset($input['picture']) ) {
+      $params['picture'] = $input['picture'];
+    }
+
     try {
       $this->_facebook->api('/' . $this->_sm_credentials->row['fb_page'] . '/feed', 'POST', $params);
     } catch (Exception $e) {
-      Throw new Exception('Ocorreu um erro ao postar no Facebook, favor tentar novamente mais tarde.');
+      Throw new Exception('Ocorreu um erro ao postar no Facebook, favor tentar novamente mais tarde. Detalhes:' . $e->getMessage());
     }
     //
     $f = new TableFilter($this->_table, $input);
