@@ -24,12 +24,15 @@ class YouTubeModel extends BaseModelAdm
   protected $_youtube;
   protected $_youtube_client;
   protected $_sm_credentials;
+  protected $_status = false;
 
   public function __construct ()
   {
     parent::__construct();
     $this->_sm_credentials = new SocialmediaCredentialsModel();
     $this->_sm_credentials->fetchAll();
+
+    $this->setStatus();
 
     $this->_youtube_client = new Google_Client();
     $this->_youtube_client->setClientId($this->_sm_credentials->row['youtube_id']);
@@ -39,6 +42,23 @@ class YouTubeModel extends BaseModelAdm
     $this->_youtube_client->setAccessType('offline');
     $this->_youtube_client->setApprovalPrompt('force');
     $this->_youtube = new Google_Service_YouTube($this->_youtube_client);
+
+  }
+
+  private function setStatus ()
+  {
+    if ( is_null($this->_sm_credentials->row['youtube_id']) || is_null($this->_sm_credentials->row['youtube_secret']) ||
+            $this->_sm_credentials->row['youtube_id'] == '' || $this->_sm_credentials->row['youtube_secret'] == '' ) {
+      return;
+    }
+
+    $this->_status = true;
+
+  }
+
+  public function getStatus ()
+  {
+    return $this->_status;
 
   }
 
