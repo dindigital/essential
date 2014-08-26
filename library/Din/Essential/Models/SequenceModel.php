@@ -59,7 +59,11 @@ class SequenceModel extends BaseModelAdm
       if ( is_array($dependence_field) ) {
         foreach ( $dependence_field as $df ) {
           $dependence_value = $row[$df];
-          $arrCriteria[$df . ' = ?'] = $dependence_value;
+          if ( is_null($dependence_value) ) {
+            $arrCriteria[$df . ' IS NULL'] = null;
+          } else {
+            $arrCriteria[$df . ' = ?'] = $dependence_value;
+          }
         }
       } else {
         $dependence_value = $row[$dependence_field];
