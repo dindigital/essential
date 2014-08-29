@@ -43,6 +43,7 @@ class TweetableEntity extends BaseModelAdm implements Tweetable
     $select = new Select($entity_tbl);
     $select->addField($entity_title, 'title');
     $select->addField('uri');
+    $select->addField('short_link');
     $select->where(array(
         "{$entity_id} = ?" => $this->getId()
     ));
@@ -54,7 +55,12 @@ class TweetableEntity extends BaseModelAdm implements Tweetable
 
     $title = $result[0]['title'];
     $title = LimitChars::filter($title, 100, '...');
-    $url = URL . $result[0]['uri'];
+    if ( $result[0]['short_link'] ) {
+      $url = $result[0]['short_link'];
+    } else {
+      $url = URL . $result[0]['uri'];
+    }
+
 
     //shorten url
     try {
