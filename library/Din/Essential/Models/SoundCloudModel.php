@@ -95,7 +95,11 @@ class SoundCloudModel extends BaseModelAdm
 
   public function insertComplete ( $input )
   {
-    $file = '@' . $input['file'];
+    if ( function_exists('curl_file_create') ) {
+      $file = curl_file_create($input['file']);
+    } else {
+      $file = '@' . $input['file'];
+    }
 
     $track = array(
         'track[title]' => $input['title'],
