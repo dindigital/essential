@@ -53,6 +53,7 @@ class SocialmediaCredentialsModel extends BaseModelAdm
     $f->string()->filter('link_youtube');
     $f->string()->filter('link_issuu');
     $f->string()->filter('link_soundcloud');
+    $f->string()->filter('link_cs');
     $f->string()->filter('discus_username');
 
     $this->dao_update(false);
