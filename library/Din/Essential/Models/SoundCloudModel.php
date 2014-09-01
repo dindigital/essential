@@ -126,6 +126,32 @@ class SoundCloudModel extends BaseModelAdm
 
   }
 
+  public function insertFromLink ( $link )
+  {
+    $response_text = file_get_contents("http://api.soundcloud.com/resolve.json?url={$link}&client_id={$this->_sm_credentials->row['sc_client_id']}");
+    $response_json = json_decode($response_text);
+
+    if ( json_last_error() )
+      throw new Exception('Não foi possível converter pra JSON: ' . $response_text);
+
+    $track_id = $response_json->id;
+    $permalink_url = $response_json->permalink_url;
+
+    $f = new TableFilter($this->_table, array(
+        'track_id' => $track_id,
+        'track_permalink' => $permalink_url
+    ));
+    $f->newId()->filter('id_soundcloud');
+    $f->string()->filter('track_id');
+    $f->string()->filter('track_permalink');
+
+    $this->_dao->insert($this->
+            _table);
+
+    return $this->_table->id_soundcloud;
+
+  }
+
   public function getEmbed ( $track_url )
   {
     $response_text = $this->_api->get('oembed', array(
