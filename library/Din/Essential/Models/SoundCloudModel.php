@@ -9,6 +9,7 @@ use Din\Essential\Models\SocialmediaCredentialsModel;
 use Din\Http\Header;
 use Din\TableFilter\TableFilter;
 use Din\Session\Session;
+use Din\Filters\Date\DateFormat;
 
 /**
  *
@@ -103,8 +104,32 @@ class SoundCloudModel extends BaseModelAdm
 
     $track = array(
         'track[title]' => $input['title'],
-        'track[asset_data]' => $file
+        'track[asset_data]' => $file,
+        'track[downloadable]' => true,
+        'track[streamable]' => true,
+        'track[description]' => $input['description'],
+        'track[tag_list]' => $input['tag_list'],
     );
+
+    if ( isset($input['date']) && DateFormat::validate($input['date']) ) {
+      $d = DateFormat::filter_date($input['date'], 'd');
+      $m = DateFormat::filter_date($input['date'], 'm');
+      $y = DateFormat::filter_date($input['date'], 'Y');
+
+      $track['track[release_day]'] = $d;
+      $track['track[release_month]'] = $m;
+      $track['track[release_year]'] = $y;
+    }
+
+    if ( isset($input['cover']) ) {
+      if ( function_exists('curl_file_create') ) {
+        $cover = curl_file_create($input['cover']);
+      } else {
+        $cover = '@' . $input['cover'];
+      }
+
+      $track['track[artwork_data]'] = $cover;
+    }
 
     $response_text = $this->_api->post('tracks', $track);
     $response_json = json_decode($response_text);
