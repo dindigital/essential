@@ -72,7 +72,12 @@ class FacepostModel extends BaseModelAdm
       // THIS WAY I CAN SEND THE USER TO LOGIN URL TO GET A NEW ACCESS TOKEN
       $this->_facebook->api('/me');
     } catch (Exception $e) {
-      return $this->_facebook->getLoginUrl();
+      return $this->_facebook->getLoginUrl(array(
+                  'scope' => array(
+                      'publish_actions',
+                      'manage_pages'
+                  )
+      ));
     }
 
   }
