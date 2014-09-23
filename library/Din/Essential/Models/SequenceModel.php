@@ -73,7 +73,9 @@ class SequenceModel extends BaseModelAdm
 
     $commonCriteria = $arrCriteria;
 
-    if ( $sequence_new == 0 ) {
+    if ( $sequence_new == $sequence_old ) {
+      //ignore
+    } else if ( $sequence_new == 0 ) {
       $arrCriteria['sequence > ?'] = $sequence_old;
       $result = $this->operateSequence('-', $arrCriteria);
     } else if ( $sequence_old == 0 ) {
