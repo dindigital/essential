@@ -107,7 +107,7 @@ class SoundCloudModel extends BaseModelAdm
         'track[asset_data]' => $file,
         'track[downloadable]' => true,
         'track[streamable]' => true,
-        'track[description]' => $input['description'],
+        'track[description]' => trim(strip_tags($input['description'])),
         'track[tag_list]' => $input['tag_list'],
     );
 
@@ -131,7 +131,14 @@ class SoundCloudModel extends BaseModelAdm
       $track['track[artwork_data]'] = $cover;
     }
 
-    $response_text = $this->_api->post('tracks', $track);
+    try {
+      $response_text = $this->_api->post('tracks', $track);
+    } catch (\Soundcloud\Exception\InvalidHttpResponseCodeException $e) {
+      $error = json_decode($e->getHttpBody());
+      $msg = $error->errors[0]->error_message;
+      throw new \Exception($msg);
+    }
+
     $response_json = json_decode($response_text);
 
     if ( json_last_error() )
