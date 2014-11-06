@@ -71,11 +71,16 @@ class IssuuModel extends BaseModelAdm
     // insere na api
     $response = $this->_api->document_url_upload($input['url'], $input['name'], $input['title']);
 
+    // gera embed
+    $embed = $this->_api->document_embed_add($response['document_id'], 500, 500);
+
     // insere na tabela issuu
     $f = new TableFilter($this->_table, array(
         'document_id' => $response['document_id'],
         'name' => $response['name'],
         'link' => $response['link'],
+        'embed_id' => $embed['id'],
+        'data_config_id' => $embed['dataConfigId'],
     ));
 
     $f->newId()->filter('id_issuu');
