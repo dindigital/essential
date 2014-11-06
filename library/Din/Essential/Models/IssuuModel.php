@@ -87,6 +87,8 @@ class IssuuModel extends BaseModelAdm
     $f->string()->filter('name');
     $f->string()->filter('link');
     $f->string()->filter('document_id');
+    $f->string()->filter('embed_id');
+    $f->string()->filter('data_config_id');
 
     $this->_dao->insert($this->_table);
 
