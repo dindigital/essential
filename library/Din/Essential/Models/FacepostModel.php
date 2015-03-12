@@ -102,11 +102,11 @@ class FacepostModel extends BaseModelAdm
     // POST TO FACEBOOK PAGE
     $params = array(
         "access_token" => $this->_sm_credentials->row['fb_access_token'],
-        "message" => $input['message'],
+        "message" => is_null($input['message']) ? '' : $input['message'],
         "link" => $input['link'],
         "name" => $input['name'],
         //"caption" => "Esse é o campo caption",
-        "description" => $input['description'],
+        "description" => is_null($input['description']) ? '' : $input['description'],
     );
 
     if ( isset($input['picture']) ) {
