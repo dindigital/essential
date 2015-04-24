@@ -3,6 +3,7 @@
 namespace Din\Essential\Helpers;
 
 use Din\Essential\Helpers\PluploadPainel;
+use Din\Essential\Helpers\PluploadSkeleton;
 use Din\Form\FileBrowser\CKFinder\CKFinder;
 use Din\Form\Dropdown\Dropdown;
 use Din\Form\Textarea\Ckeditor\Ckeditor;
@@ -93,6 +94,17 @@ class Form
   public static function Upload ( $fieldname, $value, $type, $multiple = false, $preview = true )
   {
     $upl = PluploadPainel::getButton($fieldname, $type, false, $multiple, null);
+    if ( !is_null($value) && $preview ) {
+      $upl .= Preview::preview($value);
+    }
+
+    return $upl;
+
+  }
+
+  public static function Plupload ( $fieldname, $value, $type, $multiple = false, $preview = true )
+  {
+    $upl = PluploadSkeleton::getButton($fieldname, $type, false, $multiple, null);
     if ( !is_null($value) && $preview ) {
       $upl .= Preview::preview($value);
     }
