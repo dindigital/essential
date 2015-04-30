@@ -27,6 +27,15 @@ class Form
 
   }
 
+  public static function CkSkeleton ( $name, $value = '' )
+  {
+    $ck = new Ckeditor($name);
+    $ck->setFinderPath('/backend/assets/ck/ckfinder23/');
+
+    return $ck->getElement($value);
+
+  }
+
   /**
    * Retorna o ckfinder de acordo com parâmetros
    *
