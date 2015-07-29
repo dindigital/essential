@@ -111,9 +111,9 @@ class Form
 
   }
 
-  public static function Plupload ( $fieldname, $value, $type, $multiple = false, $preview = true )
+  public static function Plupload ( $fieldname, $value, $type, $multiple = false, $preview = true, $runtime = null )
   {
-    $upl = PluploadSkeleton::getButton($fieldname, $type, false, $multiple, null);
+    $upl = PluploadSkeleton::getButton($fieldname, $type, false, $multiple, null, $runtime);
     if ( !is_null($value) && $preview ) {
       $upl .= Preview::preview($value);
     }
