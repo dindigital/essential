@@ -228,7 +228,7 @@ class BaseModelAdm
 
   public function getNew ()
   {
-    $SQL = "DESCRIBE {$this->getTableName()}";
+    $SQL = "DESCRIBE `{$this->getTableName()}`";
 
     $result = $this->_dao->execute($SQL, array(), true);
 

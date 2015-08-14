@@ -15,7 +15,7 @@ class SequenceModel extends BaseModelAdm
   {
     $entity_tbl = $this->_entity->getTbl();
 
-    $SQL = "UPDATE {$entity_tbl} SET sequence = sequence {$operator} 1";
+    $SQL = "UPDATE `{$entity_tbl}` SET `sequence` = `sequence` {$operator} 1";
     $result = $this->_dao->execute($SQL, $arrCriteria);
 
     return $result;
