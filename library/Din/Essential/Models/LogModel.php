@@ -132,6 +132,8 @@ class LogModel extends BaseModelAdm
       $arrOptions[$entity_tbl] = $entity_section;
     }
 
+    asort($arrOptions);
+
     return $arrOptions;
 
   }

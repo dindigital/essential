@@ -260,6 +260,8 @@ class TrashModel extends BaseModelAdm
       $arrOptions[$entity->getTbl()] = $entity->getSection();
     }
 
+    asort($arrOptions);
+
     return $arrOptions;
 
   }
