@@ -73,7 +73,12 @@ class SequenceResult
         // implementação de maximo
         $addone = true;
         if ( isset($entity_sequence['maximum']) ) {
-          if ( $total == $entity_sequence['maximum'] ) {
+
+          $maximo = is_array($entity_sequence['maximum']) ?
+            $entity_sequence['maximum'][$row[$entity_sequence['dependence']]] :
+            $entity_sequence['maximum'];
+
+          if ( $total == $maximo ) {
             $addone = false;
           }
         }

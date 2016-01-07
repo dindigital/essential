@@ -95,7 +95,12 @@ class SequenceModel extends BaseModelAdm
 
     // implementação de maximo
     if ( isset($entity_sequence['maximum']) ) {
-      $this->updateMaximum($entity_sequence['maximum'], $commonCriteria);
+
+      $maximo = is_array($entity_sequence['maximum']) ?
+        $entity_sequence['maximum'][$row[$entity_sequence['dependence']]] :
+        $entity_sequence['maximum'];
+
+      $this->updateMaximum($maximo, $commonCriteria);
     }
 
   }
