@@ -132,7 +132,7 @@ class GaleryModel extends BaseModelAdm
   public function saveGalery ( $upload, $id_photo, $gallery_sequence = null, $label = null, $credit = null )
   {
     //_# RESOLVE A ORDEM
-    if ( $gallery_sequence === '' ) {
+    if ( $gallery_sequence === '' || is_null($gallery_sequence)) {
       $this->batch_delete_all($id_photo);
     } elseif ( $gallery_sequence ) {
       $gallery_sequence = explode(',', $gallery_sequence);
