@@ -3,12 +3,15 @@
 namespace Din\Essential\Models;
 
 use Din\Essential\Models\BaseModelAdm;
+use dinsocial\SaveHandler\FileSystem;
+use dinsocial\SocialKeys;
 use Exception;
 use Facebook;
 use Din\Essential\Models\SocialmediaCredentialsModel;
 use Din\Filters\Date\DateFormat;
 use Din\TableFilter\TableFilter;
 use Din\InputValidator\InputValidator;
+use dinsocial\Facebook\Auth as FacebookAuth;
 
 /**
  *
@@ -92,45 +95,59 @@ class FacepostModel extends BaseModelAdm
 
   public function post ( $input )
   {
-    $v = new InputValidator($input);
-    $v->string()->validate('name', 'Nome');
-    $v->string()->validate('link', 'Link');
-    $v->throwException();
-    //
-    $this->setFacebook();
-    //
-    // POST TO FACEBOOK PAGE
-    $params = array(
-        "access_token" => $this->_sm_credentials->row['fb_access_token'],
-        "message" => is_null($input['message']) ? '' : $input['message'],
-        "link" => $input['link'],
-        "name" => $input['name'],
-        //"caption" => "Esse é o campo caption",
-        "description" => is_null($input['description']) ? '' : $input['description'],
-    );
-
-    if ( isset($input['picture']) ) {
-      $params['picture'] = $input['picture'];
-    }
 
     try {
-      $this->_facebook->api('/' . $this->_sm_credentials->row['fb_page'] . '/feed', 'POST', $params);
+
+      $v = new InputValidator($input);
+      $v->string()->validate('name', 'Nome');
+      $v->string()->validate('link', 'Link');
+      $v->throwException();
+      //
+
+      $fileSystem = new FileSystem('tokens');
+
+      $facebookKey = new SocialKeys();
+      $facebookKey->setClientId(FACEBOOK_CLIENT_ID);
+      $facebookKey->setClientSecret(FACEBOOK_CLIENT_SECRET);
+      $facebookKey->setRedirectUri(FACEBOOK_REDIRECT_URL);
+
+      $facebookAuth = new FacebookAuth($facebookKey, $fileSystem);
+
+      $fb = new \Facebook\Facebook([
+          'app_id' => FACEBOOK_CLIENT_ID,
+          'app_secret' => FACEBOOK_CLIENT_SECRET,
+          'default_graph_version' => 'v2.7',
+          'default_access_token' => $facebookAuth->getToken()['access_token']
+      ]);
+
+      $facebookPost = new \dinsocial\Facebook\PageFeed($fb);
+      $id_post = $facebookPost->postPageFeed(
+          FACEBOOK_PAGE_ID,
+          $input['link'],
+          $input['name'],
+          $input['picture'],
+          $input['description'],
+          $input['message']
+      );
+
+      if ($id_post) {
+        $f = new TableFilter($this->_table, $input);
+        $f->newId()->filter('id_facepost');
+        $f->timestamp()->filter('date');
+        $f->string()->filter('name');
+        $f->string()->filter('link');
+        $f->string()->filter('picture');
+        $f->string()->filter('description');
+        $f->string()->filter('message');
+        //
+        $this->_dao->insert($this->_table);
+        //_# AVISA O MODEL
+        $this->_model->sentPost($this->_table->id_facepost);
+      }
+
     } catch (Exception $e) {
-      Throw new Exception('Ocorreu um erro ao postar no Facebook, favor tentar novamente mais tarde. Detalhes:' . $e->getMessage());
+      return $e->getMessage();
     }
-    //
-    $f = new TableFilter($this->_table, $input);
-    $f->newId()->filter('id_facepost');
-    $f->timestamp()->filter('date');
-    $f->string()->filter('name');
-    $f->string()->filter('link');
-    $f->string()->filter('picture');
-    $f->string()->filter('description');
-    $f->string()->filter('message');
-    //
-    $this->_dao->insert($this->_table);
-    //_# AVISA O MODEL
-    $this->_model->sentPost($this->_table->id_facepost);
 
   }
 
