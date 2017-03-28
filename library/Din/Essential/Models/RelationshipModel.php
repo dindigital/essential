@@ -134,7 +134,7 @@ class RelationshipModel extends BaseModelAdm
 
   }
 
-  private function count ( $row )
+  protected function count ( $row )
   {
     $fe_tbl = $this->_foreign_entity->getTbl();
     $fe_id = $this->_foreign_entity->getId();
@@ -151,7 +151,7 @@ class RelationshipModel extends BaseModelAdm
 
   }
 
-  private function getIdByTitle ( $row )
+  protected function getIdByTitle ( $row )
   {
     $fe_tbl = $this->_foreign_entity->getTbl();
     $fe_id = $this->_foreign_entity->getId();
@@ -169,7 +169,7 @@ class RelationshipModel extends BaseModelAdm
 
   }
 
-  private function insertRelationship ( $arrayId, $id )
+  protected function insertRelationship ( $arrayId, $id )
   {
     $ce_tbl = $this->_current_entity->getTbl();
     $ce_id = $this->_current_entity->getId();
