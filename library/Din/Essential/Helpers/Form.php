@@ -8,6 +8,7 @@ use Din\Form\FileBrowser\CKFinder\CKFinder;
 use Din\Form\Dropdown\Dropdown;
 use Din\Form\Textarea\Ckeditor\Ckeditor;
 use Din\Form\Listbox\Listbox;
+use Din\Form\Textarea\Ckeditor\TinyMCE;
 
 class Form
 {
@@ -22,6 +23,14 @@ class Form
   public static function Ck ( $name, $value = '' )
   {
     $ck = new Ckeditor($name);
+
+    return $ck->getElement($value);
+
+  }
+
+  public static function TinyMCE ( $name, $value = '' )
+  {
+    $ck = new TinyMCE($name);
 
     return $ck->getElement($value);
 
