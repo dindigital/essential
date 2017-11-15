@@ -30,9 +30,9 @@ class Form
 
   public static function TinyMCE ( $name, $value = '' )
   {
-    $ck = new TinyMCE($name);
+    $tiny = new TinyMCE($name);
 
-    return $ck->getElement($value);
+    return $tiny->getElement($value);
 
   }
 
