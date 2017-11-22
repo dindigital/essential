@@ -30,7 +30,6 @@ class BaseModelAdm
         $this->_dao = new DAO(PDOBuilder::build(DB_TYPE, DB_HOST, DB_SCHEMA,
                 DB_USER, DB_PASS));
         $this->_entities = new Entities('config/entities.php');
-        $this->setUploadRestrictions();
     }
     /*
      * ===========================================================================
@@ -322,22 +321,4 @@ class BaseModelAdm
         $this->_filters = $filters;
     }
 
-    public function setUploadRestrictions()
-    {
-        $adminAuth = new AdminAuthModel();
-        $admin = $adminAuth->getUser();
-        // peguei o usuário X que pode gravar no diretório Y e Z
-        // agora vou setar isso
-        $result = [
-            'SP', 'MG'
-        ];
-
-        $basePath = '../../../../../system/uploads/ck';
-        $dirs = [];
-        foreach ($result as $row) {
-            $dirs[] = "{$row}={$basePath}/{$row}";
-        }
-
-        $_SESSION['moxiemanager.filesystem.rootpath'] = implode(';', $dirs);
-    }
 }
