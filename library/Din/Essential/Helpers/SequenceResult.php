@@ -30,7 +30,7 @@ class SequenceResult
       if ( is_array($dependence_field) ) {
         foreach ( $dependence_field as $dp ) {
           foreach ( $arrCriteria as $field => $value ) {
-            if ( strpos($field, $dp) !== false ) {
+            if ( strpos($field, $dp) !== false && strpos($field, 'IN') === false ) {
               $dependenceCriteria[$field] = $value;
               //break;
             }
