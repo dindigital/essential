@@ -2,11 +2,13 @@
 
 namespace Din\Essential\Models;
 
+use Admin\Models\AdminAuthModel;
 use Din\DataAccessLayer\DAO;
 use Din\DataAccessLayer\PDO\PDOBuilder;
 use Din\Essential\Helpers\Entities;
 use Din\DataAccessLayer\Select;
 use Din\File\Folder;
+use Din\Session\Session;
 use Exception;
 use Din\Essential\Models\LogMySQLModel as log;
 use Din\DataAccessLayer\Table\Table;
