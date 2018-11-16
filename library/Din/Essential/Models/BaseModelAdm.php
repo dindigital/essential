@@ -2,7 +2,7 @@
 
 namespace Din\Essential\Models;
 
-use Admin\Models\AdminAuthModel;
+use Din\Essential\Models\AdminAuthModel;
 use Din\DataAccessLayer\DAO;
 use Din\DataAccessLayer\PDO\PDOBuilder;
 use Din\Essential\Helpers\Entities;
