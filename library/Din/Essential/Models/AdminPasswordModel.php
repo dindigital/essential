@@ -86,7 +86,8 @@ class AdminPasswordModel extends BaseModelAdm
     $email_html->setData($data);
 
     $email = new Email;
-    $email->setFrom('suporte@dindigital.com', 'DIN DIGITAL - Suporte');
+    $from = defined('SMTP_FROM') ? SMTP_FROM : 'suporte@dindigital.com';
+    $email->setFrom($from, 'DIN DIGITAL - Suporte');
     $email->setTo($user_email);
     $email->setSubject('Recuperação de Senha - Painel de Controle');
     $email->setBody($email_html->getResult());
