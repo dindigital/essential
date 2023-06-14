@@ -10,7 +10,7 @@
     }
   },
   "require": {
-    "dindigital/din": "dev-master"
+    "dindigital/din": "dev-php7"
   },
   "authors": [
     {
