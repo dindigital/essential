@@ -50,6 +50,10 @@ class RelationshipModel extends BaseModelAdm
       $arrCriteria['is_del = ?'] = '0';
     }
 
+    if ( $this->_foreign_entity->isArchivable() ) {
+      $arrCriteria['is_archived = ?'] = '0';
+    }
+
     $select = new Select($fe_tbl);
     $select->addField($fe_id, 'id');
     $select->addField($fe_title, 'text');
@@ -82,6 +86,10 @@ class RelationshipModel extends BaseModelAdm
 
     if ( $this->_foreign_entity->hasTrash() ) {
       $arrCriteria['is_del = ?'] = '0';
+    }
+
+    if ( $this->_foreign_entity->isArchivable() ) {
+      $arrCriteria['is_archivable = ?'] = '0';
     }
 
     $select = new Select($fe_tbl);

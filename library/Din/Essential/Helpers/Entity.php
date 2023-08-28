@@ -55,6 +55,12 @@ class Entity
 
   }
 
+  public function isArchivable ()
+  {
+    return $this->returnField('is_archivable') == true;
+
+  }
+
   public function getId ()
   {
     return $this->returnField('id');
